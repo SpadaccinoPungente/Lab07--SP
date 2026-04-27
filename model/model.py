@@ -10,8 +10,8 @@ class Model:
         self._situazioni = MeteoDao.get_all_situazioni()
 
         # Variabili di stato per la ricorsione
-        self._best_sol = []
-        self._best_costo = float('inf')
+        self._best_sol = None
+        self._best_costo = None
 
     def get_umidita_media(self, mese):
         sum_umi = {}
@@ -62,9 +62,9 @@ class Model:
         if costo >= self._best_costo: return
 
         if len(parziale)==15:
-            if costo < self._best_costo:
-                self._best_sol = copy.deepcopy(parziale)
-                self._best_costo = costo
+            self._best_sol = copy.deepcopy(parziale)
+            self._best_costo = costo
+            return
         else:
             for situazione in situazioni[3*len(parziale):3*len(parziale)+3]:
                 # Funziona ma in generale pericoloso. Il modo corretto sarebbe ciclare sulle città filtrando per
