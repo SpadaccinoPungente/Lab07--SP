@@ -7,7 +7,6 @@ from model.model import Model
 class Controller:
 
     def __init__(self, view: View, model: Model):
-
         # View, model.
         self._view = view
         self._model = model
@@ -16,7 +15,6 @@ class Controller:
         self._mese = 0
 
     def handle_umidita_media(self, e):
-
         # Control on self._mese.
         if self._mese == 0:
             self._view.create_alert("Selezionare un mese dal menù a tendina.")
@@ -37,7 +35,6 @@ class Controller:
         self._view.update_page()
 
     def handle_sequenza(self, e):
-
         # Control on self._mese.
         if self._mese == 0:
             self._view.create_alert("Selezionare un mese dal menù a tendina.")
@@ -59,7 +56,7 @@ class Controller:
             self._view.lst_result.controls.append(ft.Text(f"La sequenza ottima ha costo {costo} ed è:"))
             for s in sequenza:
                 self._view.lst_result.controls.append(
-                    ft.Text(f"[{s.localita} - {s.data}] Umidità = {s.umidita}"))
+                    ft.Text(f"[{s.Localita} - {s.Data}] Umidità = {s.Umidita}"))
 
         self._view.update_page()
 

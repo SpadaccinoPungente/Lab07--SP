@@ -4,7 +4,6 @@ import flet as ft
 class View(ft.UserControl):
 
     def __init__(self, page: ft.Page):
-
         super().__init__()
 
         # Page initialization.
@@ -24,7 +23,6 @@ class View(ft.UserControl):
         self.lst_result: ft.ListView = None
 
     def load_interface(self):
-
         # Page title.
         self._title = ft.Text(value="Analisi meteo", color="blue", size=24)
         self._page.controls.append(self._title)
