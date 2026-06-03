@@ -22,7 +22,15 @@ class Controller:
         self._view.update_page()
 
     def handle_sequenza(self, e):
-        pass
+        if self._mese_selezionato == 0:
+            self._view.create_alert("Selezionare un mese!")
+            return
+        self._view.lst_result.controls.clear()
+        sequenza_ottima, costo_minimo = self._model.getSequenzaOttima(self._mese_selezionato)
+
+        self._view.lst_result.controls.append(ft.Text(f"La sequenza ottima ha costo {costo_minimo} ed è:"))
+        for situazione in sequenza_ottima: self._view.lst_result.controls.append(ft.Text(situazione))
+        self._view.update_page()
 
     def read_mese(self, e):
         self._mese_selezionato = int(e.control.value)
