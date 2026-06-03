@@ -2,26 +2,25 @@ from database.DB_connect import DBConnect
 from model.situazione import Situazione
 
 
-class MeteoDao():
+class MeteoDao:
 
     @staticmethod
-    def get_all_situazioni():
+    def getUmiditaMedie(int_mese_selezionato):
         cnx = DBConnect.get_connection()
-        result = []
         if cnx is None:
             print("Connessione fallita")
-        else:
-            cursor = cnx.cursor(dictionary=True)
-            query = """SELECT s.Localita, s.Data, s.Umidita
-                        FROM situazione s 
-                        ORDER BY s.Data ASC"""
-            cursor.execute(query)
-            for row in cursor:
-                result.append(Situazione(row["Localita"],
-                                         row["Data"],
-                                         row["Umidita"]))
-            cursor.close()
-            cnx.close()
-        return result
+            return [], False
+        cursor = cnx.cursor(dictionary=True)
+        query = """
+                select s.Localita, avg(s.Umidita) as Umidita_media
+                from situazione s
+                where month(s.data) = %s
+                group by s.Localita
+                """
+        cursor.execute(query, (int_mese_selezionato,))
+        result = cursor.fetchall()
+        cursor.close()
+        cnx.close()
+        return result, True
 
 
